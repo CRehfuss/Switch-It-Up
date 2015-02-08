@@ -2,7 +2,7 @@
 #Main file
 
 
-import pygame
+import pygame, key_mapping
 from pygame.locals import *
 
 pygame.init()
@@ -71,11 +71,11 @@ while not done:
 
     #Testing Key Mapping function
 
-    keyup, keydown, keyleft, keyright = getKeys(1)
+    keyup, keydown, keyleft, keyright = key_mapping.getKeys(1)
 
     keypressed = pygame.key.get_pressed()
 
-    if pressed[keyup]:
+    if keypressed[keyup]:
         print("up")
     if keypressed[keydown]:
         print("down")
