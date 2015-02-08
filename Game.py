@@ -53,17 +53,38 @@ class Room1(Room):
     
     
 
+
 #main
 clock = pygame.time.Clock()
 done = False
 while not done:
+
+
+
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT():
             done = True
     screen.fill(WHITE)
     Room1.draw(screen) 
     pygame.display.flip()
-    
+
+    #Testing Key Mapping function
+
+    keyup, keydown, keyleft, keyright = getKeys(1)
+
+    keypressed = pygame.key.get_pressed()
+
+    if pressed[keyup]:
+        print("up")
+    if keypressed[keydown]:
+        print("down")
+    if keypressed[keyleft]:
+        print("left")
+    if keypressed[keyright]:
+        print("right")
+
+
     
     pygame.quit()
     
