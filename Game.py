@@ -2,92 +2,130 @@
 #Main file
 
 
-import pygame, key_mapping
+import pygame
 from pygame.locals import *
 
 pygame.init()
-BLACK    = (   0,   0,   0)
-WHITE    = ( 255, 255, 255)
+
 screen = pygame.display.set_mode([700,500])
 pygame.display.set_caption("Switch It Up")
 
+x_Dragon = 0;
+y_Dragon = 0;
+
+
+#Animates images
+def AnimationImages(width, height, filename): #defining a function have to do it before
+    # images array will be filled with each frame of an animation
+    images = []
+    
+    fullImage = pygame.image.load(filename).convert_alpha()
+    fullWidth, fullHeight = fullImage.get_size()
+    
+    for i in xrange(int(fullWidth/width)):
+        images.append(fullImage.subsurface((i*width, 0, width ,height)))
+        
+    return images
+
+
 #The Implementation of Player class should follow
-#class Player(pygame.sprite.Sprite):
-
-class Room(object):
-    wall_list = None
-    def __int__(self):
-        self.wall_list = pygame.sprite.Group()
-        
-#The Implementation of Wall class should follow
-class Wall(pygame.sprite.Sprite):
-    def __init__(self, x, y, fileName):
-        
+class Player(pygame.sprite.Sprite):
+    
+    def __init__(self, color, width, height, filename):
+        # call parent class constructor
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(fileName).convert()
-
-        self.rect = self.image.get_rect()        
-        self.rect.x = x
-        self.rect.y = y
         
-class Room1(Room):
-    def __init__(self):
-        Room.__init__(self)
-        # arbitrary wall coords
-        walls = [[0, 0, "block.png"],
-                [0, 350,"block.png"],
-                [500, 0,"block.png"],
-                [500, 350,"block.png"],
-                [20, 0,"block.png"],
-                [20, 200,"block.png"],
-                [390, 350,"block.png"]
-                ]
-        # add each part of wall to a list
-        for thing in walls:
-            #wall = Wall(thing[0], thing[1], thing[2], thing[3], thing[4])
-            self.wall_list.add(thing)
-    
-#def getCollision(player,walls): 
-    #if pygame.sprite.collide_rect(player,walls):
+        # load the image, converting the pixel format for optimization
+        self.all_images = AnimationImages(width,height,filename)
         
+        # delay is time between animation frames
+        # last_update saves the time the animation was last updated     
+        self.delay = 100
+        self.last_update = 0
+        
+         # frame is the array location in images
+        self.frame = 0
+        self.location = location
+        
+        # sets the animations current image
+        self.image = self.all_images[self.frame]
+        self.image.set_colorkey(color) 
+        self.rect = self.image.get_rect()       
+
+        # position the image
+        #self.Reset(self)
+       
+        self.rect.x_Dragon = 350
+        self.rect.y_Dragon = 250
+        
+        # sets the lives to three
+        self.lives = 3;
     
+    def getNumLives(self):
+        return self.lives
     
-
-
-#main
-clock = pygame.time.Clock()
-done = False
-while not done:
-
-
-
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT():
-            done = True
-    screen.fill(WHITE)
-    Room1.draw(screen) 
-    pygame.display.flip()
-
-    #Testing Key Mapping function
-
-    keyup, keydown, keyleft, keyright = key_mapping.getKeys(1)
-
-    keypressed = pygame.key.get_pressed()
-
-    if keypressed[keyup]:
-        print("up")
-    if keypressed[keydown]:
-        print("down")
-    if keypressed[keyleft]:
-        print("left")
-    if keypressed[keyright]:
-        print("right")
-
-
+    #Checks if the dragon is colliding with the wall
+    def getCollision(self, wall2):
+        global x_Dragon
+        global y_Dragon
+        
+        if pygame.sprite.collide_rect(self, block2):
+            
+            x_Dragon = random.randrange(700 - self.rect.width)
+            
+            y_Dragon = random.randrange(500 - self.rect.height)
+    def moveDown(self):
+        global y_Dragon
+        y_Dragon = y_Dragon - 2
     
-    pygame.quit()
+    def moveUp(self):
+        global y_Dragon
+        y_Dragon = y_Dragon + 2
     
+    def moveLeft(self):
+        global x_Dragon
+        x_Dragon = x_Dragon -2
+        
+    def moveRight(self):
+        global x_Dragon
+        x_Dragon = x_Dragon +2
+        
+    def updateAnimation (self, totalTime):
+        
+        # checks if enough time has passed to change the image
+        if totalTime - self.last_update > self.delay:
+            self.frame += 1
+            
+            # checks if the new image is greater than the number of images
+            # starts image cycle over if true
+            if self.frame >= len(self.all_images): 
+                self.frame = 0
+                
+            # updates current animation image
+            self.image = self.all_images[self.frame]
+            
+            # changes the last update time
+            self.last_update = totalTime
+        
+        #draws animation changes to the screen
+        screen.blit(self.image, self)
+        
+#state = 0
+#while state != 1:
     
+    #Just a white screen
+#    screen.fill([255,255,255])
     
+    # create the dragon image
+#    dragon = Player((255,255,255), 128, 114"Dragons.png",(x,y))               
+        
+        
+        
+        
+        
+        
+        
+        
+
+
     
