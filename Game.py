@@ -7,11 +7,11 @@ from pygame.locals import *
 
 pygame.init()
 
-screen = pygame.display.set_mode([700,500])
+screen = pygame.display.set_mode([700, 500])
 pygame.display.set_caption("Switch It Up")
 
-x_Dragon = 0;
-y_Dragon = 0;
+x_Dragon = 0
+y_Dragon = 0
 
 
 #Animates images
@@ -31,7 +31,7 @@ def AnimationImages(width, height, filename): #defining a function have to do it
 #The Implementation of Player class should follow
 class Player(pygame.sprite.Sprite):
     
-    def __init__(self, color, width, height, filename): #should location be a parameter? - Tyler
+    def __init__(self, color, width, height, filename, location): #should location be a parameter? - Tyler
         # call parent class constructor
         pygame.sprite.Sprite.__init__(self)
         
@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
         
          # frame is the array location in images
         self.frame = 0
-        self.location = location
+      #  self.location = location[0]
 
         # sets the animations current image
         self.image = self.all_images[self.frame]
@@ -55,8 +55,8 @@ class Player(pygame.sprite.Sprite):
         # position the image
         #self.Reset(self)
        
-        self.rect.x_Dragon = 350 #shouldn't this be the location, so we can move the player? - Tyler
-        self.rect.y_Dragon = 250
+        self.rect.x_Dragon = location[0] #shouldn't this be the location, so we can move the player? - Tyler
+        self.rect.y_Dragon = location[1]
         
         # sets the lives to three
         self.lives = 3;
