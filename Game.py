@@ -7,7 +7,7 @@ from pygame.locals import *
 from Alpha_Release import key_mapping
 
 pygame.init()
-
+#Hello?
 screen = pygame.display.set_mode([700,500])
 pygame.display.set_caption("Switch It Up")
 
