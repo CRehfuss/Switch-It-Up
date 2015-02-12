@@ -7,7 +7,7 @@ from pygame.locals import *
 from Alpha_Release import key_mapping
 
 pygame.init()
-#Hello?
+
 screen = pygame.display.set_mode([700,500])
 pygame.display.set_caption("Switch It Up")
 
@@ -80,19 +80,19 @@ class Player(pygame.sprite.Sprite):
             
     def moveDown(self):
         global y_Dragon
-        y_Dragon += 2
+        y_Dragon += .5
     
     def moveUp(self):
         global y_Dragon
-        y_Dragon -= 2
+        y_Dragon -= .5
     
     def moveLeft(self):
         global x_Dragon
-        x_Dragon -= 2
+        x_Dragon -= .5
         
     def moveRight(self):
         global x_Dragon
-        x_Dragon += 2
+        x_Dragon += .5
 
      #Fourth discussion   
     def updateAnimation (self, totalTime):
