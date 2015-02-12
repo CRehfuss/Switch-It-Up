@@ -2,10 +2,9 @@
 #Main file
 
 
-import random
+import pygame, random
 
-import pygame
-
+from pygame.locals import *
 from Alpha_Release import key_mapping
 
 
@@ -130,7 +129,7 @@ while state != 1:
 
     # create the dragon image
     dragon = Player((255,255,255), 128, 114, "../Dragons.png", (x_Dragon, y_Dragon))
-    screen.blit(dragon.image, dragon)
+
 
     keypressed = pygame.key.get_pressed()
 
@@ -143,7 +142,9 @@ while state != 1:
     if keypressed[dragon.rightkey]:
         dragon.moveright()
 
-
+    for event in pygame.event.get():
+        if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+            state = 1
         
         
         
