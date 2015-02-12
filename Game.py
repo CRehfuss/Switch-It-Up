@@ -2,9 +2,9 @@
 #Main file
 
 
-import pygame, random, key_mapping
+import pygame, random
 from pygame.locals import *
-#DOes this work?
+from Alpha_Release import key_mapping
 
 pygame.init()
 
