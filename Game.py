@@ -2,7 +2,7 @@
 #Main file
 
 
-import pygame
+import pygame, random
 from pygame.locals import *
 
 pygame.init()
@@ -31,7 +31,7 @@ def AnimationImages(width, height, filename): #defining a function have to do it
 #The Implementation of Player class should follow
 class Player(pygame.sprite.Sprite):
     
-    def __init__(self, color, width, height, filename):
+    def __init__(self, color, width, height, filename): #should location be a parameter? - Tyler
         # call parent class constructor
         pygame.sprite.Sprite.__init__(self)
         
@@ -46,7 +46,7 @@ class Player(pygame.sprite.Sprite):
          # frame is the array location in images
         self.frame = 0
         self.location = location
-        
+
         # sets the animations current image
         self.image = self.all_images[self.frame]
         self.image.set_colorkey(color) 
@@ -55,11 +55,14 @@ class Player(pygame.sprite.Sprite):
         # position the image
         #self.Reset(self)
        
-        self.rect.x_Dragon = 350
+        self.rect.x_Dragon = 350 #shouldn't this be the location, so we can move the player? - Tyler
         self.rect.y_Dragon = 250
         
         # sets the lives to three
         self.lives = 3;
+
+        #initialize players up down left right (Do I have to do this, Let's see)
+        self.upkey, self.downkey, self.leftkey, self.rightkey = key_mapping.getKeys(0)
     
     def getNumLives(self):
         return self.lives
@@ -74,6 +77,8 @@ class Player(pygame.sprite.Sprite):
             x_Dragon = random.randrange(700 - self.rect.width)
             
             y_Dragon = random.randrange(500 - self.rect.height)
+
+
     def moveDown(self):
         global y_Dragon
         y_Dragon = y_Dragon - 2
@@ -109,23 +114,36 @@ class Player(pygame.sprite.Sprite):
         
         #draws animation changes to the screen
         screen.blit(self.image, self)
-        
-#state = 0
-#while state != 1:
+
+
+
+state = 0
+while state != 1:
     
     #Just a white screen
-#    screen.fill([255,255,255])
-    
+    screen.fill([255,255,255])
+
+
     # create the dragon image
-#    dragon = Player((255,255,255), 128, 114"Dragons.png",(x,y))               
-        
-        
-        
-        
-        
-        
-        
-        
+    dragon = Player((255,255,255), 128, 114, "Dragons.png",(x_Dragon,y_Dragon))
+    screen.blit(dragon.image, dragon)
+
+    keypressed = pygame.key.get_pressed()
+
+    if keypressed[dragon.upkey]:
+        dragon.moveup()
+    if keypressed[dragon.downkey]:
+        dragon.movedown()
+    if keypressed[dragon.leftkey]:
+        dragon.moveleft()
+    if keypressed[dragon.rightkey]:
+        dragon.moveright()
 
 
-    
+        
+        
+        
+        
+        
+        
+        
