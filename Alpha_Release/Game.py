@@ -2,8 +2,12 @@
 #Main file
 
 
-import pygame, random
-from pygame.locals import *
+import random
+
+import pygame
+
+from Alpha_Release import key_mapping
+
 
 pygame.init()
 
@@ -36,7 +40,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         # load the image, converting the pixel format for optimization
-        self.all_images = AnimationImages(width,height,filename)
+        self.all_images = AnimationImages(width, height, filename)
         
         # delay is time between animation frames
         # last_update saves the time the animation was last updated     
@@ -55,11 +59,11 @@ class Player(pygame.sprite.Sprite):
         # position the image
         #self.Reset(self)
        
-        self.rect.x_Dragon = location[0] #shouldn't this be the location, so we can move the player? - Tyler
-        self.rect.y_Dragon = location[1]
+        self.rect.x = location[0]
+        self.rect.y = location[1]
         
         # sets the lives to three
-        self.lives = 3;
+        self.lives = 3
 
         #initialize players up down left right (Do I have to do this, Let's see)
         self.upkey, self.downkey, self.leftkey, self.rightkey = key_mapping.getKeys(0)
@@ -81,19 +85,19 @@ class Player(pygame.sprite.Sprite):
 
     def moveDown(self):
         global y_Dragon
-        y_Dragon = y_Dragon - 2
+        y_Dragon -= 2
     
     def moveUp(self):
         global y_Dragon
-        y_Dragon = y_Dragon + 2
+        y_Dragon += 2
     
     def moveLeft(self):
         global x_Dragon
-        x_Dragon = x_Dragon -2
+        x_Dragon -= 2
         
     def moveRight(self):
         global x_Dragon
-        x_Dragon = x_Dragon +2
+        x_Dragon += 2
         
     def updateAnimation (self, totalTime):
         
@@ -125,7 +129,7 @@ while state != 1:
 
 
     # create the dragon image
-    dragon = Player((255,255,255), 128, 114, "Dragons.png",(x_Dragon,y_Dragon))
+    dragon = Player((255,255,255), 128, 114, "../Dragons.png", (x_Dragon, y_Dragon))
     screen.blit(dragon.image, dragon)
 
     keypressed = pygame.key.get_pressed()
