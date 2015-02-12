@@ -62,7 +62,7 @@ class Player(pygame.sprite.Sprite):
         self.upkey, self.downkey, self.leftkey, self.rightkey = key_mapping.getKey(0)
         
         # sets the lives to three
-        self.lives = 3;
+        self.lives = 3
     
     def getNumLives(self):
         return self.lives
