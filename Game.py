@@ -56,10 +56,10 @@ class Player(pygame.sprite.Sprite):
         # position the image
         #self.Reset(self)
        
-        self.rect.x = 350
-        self.rect.y = 250
+        self.rect.x = 0
+        self.rect.y = 0
         
-        self.upkey, self.downkey, self.leftkey, self.rightkey = key_mapping.getKey(0)
+        self.upkey, self.downkey, self.leftkey, self.rightkey = key_mapping.getKeys(0)
         
         # sets the lives to three
         self.lives = 3
@@ -80,19 +80,20 @@ class Player(pygame.sprite.Sprite):
             
     def moveDown(self):
         global y_Dragon
-        y_Dragon = y_Dragon - 2
+        y_Dragon += 2
     
     def moveUp(self):
         global y_Dragon
-        y_Dragon = y_Dragon + 2
+        y_Dragon -= 2
     
     def moveLeft(self):
         global x_Dragon
-        x_Dragon = x_Dragon -2
+        x_Dragon -= 2
         
     def moveRight(self):
         global x_Dragon
-        x_Dragon = x_Dragon +2
+        x_Dragon += 2
+
      #Fourth discussion   
     def updateAnimation (self, totalTime):
         
@@ -115,11 +116,10 @@ class Player(pygame.sprite.Sprite):
         screen.blit(self.image, self)
         
 
-    
-
-# create the dragon image
-dragon = Player((255,255,255), 128, 114,"Dragons.png", [x_Dragon, y_Dragon])  
+dragon = Player((255,255,255), 128, 114,"Dragons.png", [x_Dragon, y_Dragon])
 screen.blit(dragon.image, dragon)
+
+
 
 GameOver = 0
 state = 0
@@ -127,29 +127,35 @@ while state != 1:
     
     #Just a white screen
     screen.fill([255,255,255])
+     # create the dragon image
+
+    dragon.rect.x = x_Dragon
+    dragon.rect.y = y_Dragon
 
     timer = pygame.time.get_ticks()  
     
-    dragon.updateAnimation(timer) 
-    
+    dragon.updateAnimation(timer)
+
+
+
     pygame.display.update()
     
 
     keypressed = pygame.key.get_pressed()
 
     if keypressed[dragon.upkey]:
-        dragon.moveup()
+        dragon.moveUp()
     if keypressed[dragon.downkey]:
-        dragon.movedown()
+        dragon.moveDown()
     if keypressed[dragon.leftkey]:
-        dragon.moveleft()
+        dragon.moveLeft()
     if keypressed[dragon.rightkey]:
-        dragon.moveright()
+        dragon.moveRight()
 
     for event in pygame.event.get():
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
             state = 1
-        
+
         
         
         
