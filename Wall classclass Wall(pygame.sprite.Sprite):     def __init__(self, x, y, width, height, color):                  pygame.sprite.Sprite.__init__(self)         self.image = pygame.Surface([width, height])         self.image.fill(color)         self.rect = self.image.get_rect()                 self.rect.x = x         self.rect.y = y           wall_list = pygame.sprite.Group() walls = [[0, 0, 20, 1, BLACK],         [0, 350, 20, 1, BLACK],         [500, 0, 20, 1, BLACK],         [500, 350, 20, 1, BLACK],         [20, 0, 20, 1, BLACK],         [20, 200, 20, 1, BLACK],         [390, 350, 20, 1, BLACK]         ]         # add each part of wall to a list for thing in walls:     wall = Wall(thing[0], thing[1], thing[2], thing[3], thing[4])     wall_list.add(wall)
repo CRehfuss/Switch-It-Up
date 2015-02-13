@@ -1,0 +1,26 @@
+class Wall(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height, color):
+        
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface([width, height])
+        self.image.fill(color)
+        self.rect = self.image.get_rect()        
+        self.rect.x = x
+        self.rect.y = y
+        
+
+wall_list = pygame.sprite.Group()
+# creating coords and wall sizes
+walls = [[0, 0, 20, 1, BLACK],
+        [0, 350, 20, 1, BLACK],
+        [500, 0, 20, 1, BLACK],
+        [500, 350, 20, 1, BLACK],
+        [20, 0, 20, 1, BLACK],
+        [20, 200, 20, 1, BLACK],
+        [390, 350, 20, 1, BLACK]
+        ]
+# add each part of wall to a list
+for var in walls:
+    wall = Wall(var[0], var[1], var[2], var[3], var[4]) # each var is input into Wall()
+    wall_list.add(wall)
+    # draw with wall_list.draw(screen)
